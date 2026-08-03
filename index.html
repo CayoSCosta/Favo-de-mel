@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Favo de Mel — Confeitaria Artesanal</title>
-<meta name="description" content="Bolos, tortas e doces finos feitos à mão. Peça pelo WhatsApp e adoce seu momento com a Favo de Mel.">
-<link rel="icon" href="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV">
+<meta name="description" content="Bolos, tortas e doces finos feitos à mão. Faça seu pedido online e adoce seu momento com a Favo de Mel — entregas em Cajamar-SP.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 93,27 93,73 50,96 7,73 7,27' fill='%23E4992F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -74,10 +74,11 @@
     box-shadow:0 1px 0 var(--line);
   }
   .brand{display:flex; align-items:center; gap:12px;}
-  .brand img{
+  .brand img, .brand .logo-mark{
     width:44px; height:44px; border-radius:50%; object-fit:cover;
     border:2px solid var(--honey);
   }
+  .logo-mark{background:var(--espresso);}
   .brand-name{
     font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:var(--espresso);
   }
@@ -144,10 +145,15 @@
     position:relative;
     animation:float 6s ease-in-out infinite;
   }
-  .hex-frame img{
-    width:78%; height:78%; object-fit:cover;
+  .hex-frame-inner{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    width:78%; height:78%;
     clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--espresso); color:var(--cream-light);
   }
+  .hex-frame-inner .hf-emoji{font-size:2.6rem; margin-bottom:10px;}
+  .hex-frame-inner strong{font-family:'Fraunces'; font-size:1.2rem; font-weight:600;}
+  .hex-frame-inner span{font-size:0.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--honey-soft); margin-top:6px;}
   @keyframes float{
     0%,100%{transform:translateY(0px) rotate(0deg);}
     50%{transform:translateY(-14px) rotate(1.2deg);}
@@ -298,12 +304,13 @@
   .wa-float{
     position:fixed; bottom:26px; right:26px; z-index:200;
     width:60px; height:60px; border-radius:50%;
-    background:#25D366; display:flex; align-items:center; justify-content:center;
+    background:var(--honey-dark); display:flex; align-items:center; justify-content:center;
     box-shadow:0 12px 26px -8px rgba(0,0,0,0.4);
     animation:pulse 2.4s ease-in-out infinite;
+    font-size:1.6rem;
   }
   .wa-float:hover{transform:scale(1.06);}
-  @keyframes pulse{ 0%,100%{box-shadow:0 12px 26px -8px rgba(37,211,102,0.5);} 50%{box-shadow:0 12px 34px -6px rgba(37,211,102,0.85);} }
+  @keyframes pulse{ 0%,100%{box-shadow:0 12px 26px -8px rgba(185,114,26,0.5);} 50%{box-shadow:0 12px 34px -6px rgba(185,114,26,0.85);} }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px){
@@ -333,15 +340,15 @@
 <!-- ================= HEADER ================= -->
 <header id="siteHeader">
   <a href="#top" class="brand">
-    <img src="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV" alt="Favo de Mel">
+    <svg class="logo-mark" width="44" height="44" viewBox="0 0 100 100" aria-label="Favo de Mel"><polygon points="50,4 93,27 93,73 50,96 7,73 7,27" fill="#E4992F"/><polygon points="50,26 74,39 74,61 50,74 26,61 26,39" fill="#34200F"/><text x="50" y="58" font-family="Fraunces, serif" font-size="30" fill="#F4C669" text-anchor="middle">🐝</text></svg>
     <div class="brand-name">Favo de Mel<span>Confeitaria Artesanal</span></div>
   </a>
   <nav class="main-nav" id="mainNav">
     <a href="#sobre">Sobre</a>
     <a href="#cardapio">Cardápio</a>
-    <a href="#revenda">Seja Revendedor</a>
+    <a href="#revenda">Como Pedir</a>
     <a href="#avaliacoes">Avaliações</a>
-    <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" class="btn btn-primary">Peça pelo WhatsApp</a>
+    <a href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener" class="btn btn-primary">Peça agora</a>
   </nav>
   <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
 </header>
@@ -352,9 +359,9 @@
     <div class="hero-copy reveal">
       <div class="eyebrow">Confeitaria artesanal · feito à mão</div>
       <h1>Cada doce nasce<br> como um <em>favo de sabor.</em></h1>
-      <p class="lead">Bolos, tortas e doces finos preparados com receita própria, ingredientes selecionados e o tempo que a doçura de verdade exige. Do nosso forno para a sua mesa.</p>
+      <p class="lead">Bolos, tortas e doces finos preparados com receita própria, ingredientes selecionados e o tempo que a doçura de verdade exige. Do nosso forno para a sua mesa — com entrega em Cajamar.</p>
       <div class="hero-ctas">
-        <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" class="btn btn-primary">
+        <a href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener" class="btn btn-primary">
           Fazer encomenda
         </a>
         <a href="#cardapio" class="btn btn-ghost">Ver cardápio</a>
@@ -362,12 +369,16 @@
       <div class="hero-stats">
         <div><strong>100%</strong><span>Artesanal</span></div>
         <div><strong>Feito</strong><span>na hora do pedido</span></div>
-        <div><strong>Entrega</strong><span>combinada por WhatsApp</span></div>
+        <div><strong>📍 Cajamar</strong><span>Área de entrega</span></div>
       </div>
     </div>
     <div class="hero-visual reveal">
       <div class="hex-frame">
-        <img src="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV" alt="Doces Favo de Mel">
+        <div class="hex-frame-inner">
+          <span class="hf-emoji">🍯</span>
+          <strong>Favo de Mel</strong>
+          <span>Confeitaria Artesanal</span>
+        </div>
       </div>
       <div class="hex-deco d1"></div>
       <div class="hex-deco d2"></div>
@@ -381,12 +392,12 @@
     <span>Doces finos</span>
     <span>Tortas artesanais</span>
     <span>Kits para festa</span>
-    <span>Revenda disponível</span>
+    <span>Entrega em Cajamar</span>
     <span>Bolos sob encomenda</span>
     <span>Doces finos</span>
     <span>Tortas artesanais</span>
     <span>Kits para festa</span>
-    <span>Revenda disponível</span>
+    <span>Entrega em Cajamar</span>
   </div>
 </div>
 
@@ -421,40 +432,40 @@
     <div class="section-head center">
       <div class="eyebrow" style="justify-content:center">O que fazemos</div>
       <h2>Um favo cheio de doçura</h2>
-      <p>Passe o mouse — ou toque — em cada célula para conhecer nossas linhas de produtos. Clique para pedir direto pelo WhatsApp.</p>
+      <p>Passe o mouse — ou toque — em cada célula para conhecer nossas linhas de produtos. Clique para pedir direto pelo nosso cardápio online.</p>
     </div>
 
     <div class="hive">
       <a class="hive-item" target="_blank" rel="noopener"
-         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Bolos%20Especiais%20da%20Favo%20de%20Mel.">
+         href="https://instadelivery.com.br/favodemelconfeitariartesanal">
         <span class="hi-emoji">🎂</span>
         <h3>Bolos Especiais</h3>
         <p>Aniversário, casamento e datas comemorativas</p>
         <span class="hi-tag">Pedir agora →</span>
       </a>
       <a class="hive-item hive-row-offset" target="_blank" rel="noopener"
-         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20as%20Tortas%20Artesanais%20da%20Favo%20de%20Mel.">
+         href="https://instadelivery.com.br/favodemelconfeitariartesanal">
         <span class="hi-emoji">🍰</span>
         <h3>Tortas Artesanais</h3>
         <p>Doces e geladas, feitas na medida certa</p>
         <span class="hi-tag">Pedir agora →</span>
       </a>
       <a class="hive-item" target="_blank" rel="noopener"
-         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Doces%20Finos%20da%20Favo%20de%20Mel.">
+         href="https://instadelivery.com.br/favodemelconfeitariartesanal">
         <span class="hi-emoji">🍬</span>
         <h3>Doces Finos</h3>
         <p>Brigadeiros gourmet e docinhos decorados</p>
         <span class="hi-tag">Pedir agora →</span>
       </a>
       <a class="hive-item hive-row-offset" target="_blank" rel="noopener"
-         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Bolos%20de%20Pote%20da%20Favo%20de%20Mel.">
+         href="https://instadelivery.com.br/favodemelconfeitariartesanal">
         <span class="hi-emoji">🍯</span>
         <h3>Bolos de Pote</h3>
         <p>Para presentear ou matar aquela vontade</p>
         <span class="hi-tag">Pedir agora →</span>
       </a>
       <a class="hive-item" target="_blank" rel="noopener"
-         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Kits%20para%20Festa%20da%20Favo%20de%20Mel.">
+         href="https://instadelivery.com.br/favodemelconfeitariartesanal">
         <span class="hi-emoji">🎉</span>
         <h3>Kits para Festa</h3>
         <p>Combos completos para sua celebração</p>
@@ -463,26 +474,26 @@
     </div>
 
     <p class="cardapio-note">Cardápio ilustrativo — troque pelas fotos e itens reais dos seus produtos.<br>
-      Fale direto com a gente pelo <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener">WhatsApp</a>.
+      Faça seu pedido direto pelo nosso <a href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener">cardápio online</a>.
     </p>
   </div>
 </section>
 
-<!-- ================= REVENDA ================= -->
+<!-- ================= COMO FUNCIONA ================= -->
 <section id="revenda" class="revenda honeycomb-pattern">
   <div class="revenda-glow"></div>
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">Oportunidade</div>
-      <h2>Seja um revendedor Favo de Mel</h2>
-      <p>Quer levar a doçura da Favo de Mel para o seu negócio? Trabalhamos com condições especiais para quem quer revender nossos produtos.</p>
-      <a href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Tenho%20interesse%20em%20ser%20revendedor%20da%20Favo%20de%20Mel." target="_blank" rel="noopener" class="btn btn-primary">Falar sobre revenda</a>
+      <div class="eyebrow">Simples assim</div>
+      <h2>Como funciona o seu pedido</h2>
+      <p>Só entregamos em Cajamar - SP, por isso o processo é rápido e sem complicação: você escolhe, a gente confirma e prepara na hora.</p>
+      <a href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener" class="btn btn-primary">Começar meu pedido</a>
     </div>
     <div class="perk-grid reveal">
-      <div class="perk"><span class="hi-emoji">💰</span><h4>Condições especiais</h4><p>Preços diferenciados para revendedores</p></div>
-      <div class="perk"><span class="hi-emoji">📦</span><h4>Produção sob demanda</h4><p>Combine volumes e prazos com a gente</p></div>
-      <div class="perk"><span class="hi-emoji">🤝</span><h4>Suporte direto</h4><p>Atendimento próximo via WhatsApp</p></div>
-      <div class="perk"><span class="hi-emoji">⭐</span><h4>Qualidade artesanal</h4><p>O mesmo padrão em todos os pedidos</p></div>
+      <div class="perk"><span class="hi-emoji">🧾</span><h4>1. Escolha</h4><p>Acesse nosso cardápio online e monte seu pedido</p></div>
+      <div class="perk"><span class="hi-emoji">✅</span><h4>2. Confirme</h4><p>Revise os itens e finalize com seu endereço em Cajamar</p></div>
+      <div class="perk"><span class="hi-emoji">👩‍🍳</span><h4>3. Preparo</h4><p>Seu doce é feito artesanalmente, fresquinho</p></div>
+      <div class="perk"><span class="hi-emoji">🚚</span><h4>4. Entrega</h4><p>Recebe em casa, dentro da área de Cajamar</p></div>
     </div>
   </div>
 </section>
@@ -498,7 +509,7 @@
     <blockquote>"Doce feito com carinho de verdade — dá pra sentir em cada mordida."
       <span class="review-cite">Cliente Favo de Mel</span>
     </blockquote>
-    <a href="https://g.page/r/CS5c2yqR-glREB0/review" target="_blank" rel="noopener" class="btn btn-ghost">Deixar minha avaliação</a>
+    <a href="https://www.instagram.com/favodemelconfeitariartesanal/" target="_blank" rel="noopener" class="btn btn-ghost">Ver mais no Instagram</a>
   </div>
 </section>
 
@@ -506,8 +517,8 @@
 <section class="cta-final">
   <div class="wrap reveal">
     <h2>Vamos adoçar o seu dia?</h2>
-    <p>Fale agora pelo WhatsApp e monte sua encomenda com a gente.</p>
-    <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" class="btn btn-primary">Chamar no WhatsApp</a>
+    <p>Faça seu pedido online e a gente entrega certinho aí em Cajamar.</p>
+    <a href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener" class="btn btn-primary">Fazer meu pedido</a>
   </div>
 </section>
 
@@ -517,14 +528,13 @@
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV" alt="Favo de Mel">
+          <svg class="logo-mark" width="40" height="40" viewBox="0 0 100 100" aria-label="Favo de Mel"><polygon points="50,4 93,27 93,73 50,96 7,73 7,27" fill="#E4992F"/><polygon points="50,26 74,39 74,61 50,74 26,61 26,39" fill="#34200F"/></svg>
           <span>Favo de Mel</span>
         </div>
-        <p style="font-size:0.88rem; line-height:1.6; max-width:280px;">Confeitaria artesanal feita com receitas próprias e muito carinho.</p>
+        <p style="font-size:0.88rem; line-height:1.6; max-width:280px;">Confeitaria artesanal feita com receitas próprias e muito carinho.<br>📍 Entregamos somente em Cajamar - SP.</p>
         <div class="social-row" style="margin-top:20px;">
           <a href="https://www.instagram.com/favodemelconfeitariartesanal/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-          <a href="https://www.facebook.com/profile.php?id=100080938954758" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-          <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+          <a href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener" aria-label="Peça agora">🛒</a>
         </div>
       </div>
       <div>
@@ -532,16 +542,16 @@
         <ul>
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#cardapio">Cardápio</a></li>
-          <li><a href="#revenda">Seja Revendedor</a></li>
+          <li><a href="#revenda">Como Pedir</a></li>
           <li><a href="#avaliacoes">Avaliações</a></li>
         </ul>
       </div>
       <div>
         <h5>Contato</h5>
         <ul>
-          <li><a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener">Peça agora (InstaDelivery)</a></li>
           <li><a href="https://www.instagram.com/favodemelconfeitariartesanal/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://g.page/r/CS5c2yqR-glREB0/review" target="_blank" rel="noopener">Avalie-nos</a></li>
+          <li>📍 Cajamar - SP</li>
         </ul>
       </div>
     </div>
@@ -552,9 +562,7 @@
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
-  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.71.45 3.38 1.3 4.86L2 22l5.35-1.4a9.9 9.9 0 0 0 4.69 1.19h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2zm5.79 14.13c-.24.68-1.4 1.33-1.93 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.08.99-2.37c.26-.28.56-.35.75-.35s.38 0 .54.01c.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.47-.14.16-.29.36-.42.48-.14.14-.28.28-.12.56.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.44.2.51.31.07.12.07.66-.17 1.34z"/></svg>
-</a>
+<a class="wa-float" href="https://instadelivery.com.br/favodemelconfeitariartesanal" target="_blank" rel="noopener" aria-label="Fazer pedido">🛒</a>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
