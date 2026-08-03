@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favo de Mel — Confeitaria Artesanal</title>
+<meta name="description" content="Bolos, tortas e doces finos feitos à mão. Peça pelo WhatsApp e adoce seu momento com a Favo de Mel.">
+<link rel="icon" href="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FBF2DE;
+    --cream-light: #FFFBF3;
+    --honey: #E4992F;
+    --honey-dark: #B9721A;
+    --honey-soft: #F4C669;
+    --espresso: #34200F;
+    --espresso-light: #5A3B24;
+    --berry: #A8394A;
+    --line: rgba(52, 32, 15, 0.14);
+    --shadow: 0 20px 40px -18px rgba(52,32,15,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--cream);
+    color:var(--espresso);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.05;
+    color:var(--espresso);
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--honey-soft); color:var(--espresso);}
+
+  /* Honeycomb texture backgrounds */
+  .hex-bg{
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(52,32,15,0.06) 1.4px, transparent 1.4px);
+    background-size: 26px 26px;
+  }
+  .honeycomb-pattern{
+    background-color:var(--cream);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='96' viewBox='0 0 84 96'%3E%3Cg fill='none' stroke='%23E4992F' stroke-opacity='0.18' stroke-width='1.4'%3E%3Cpath d='M42 0 L84 24 L84 72 L42 96 L0 72 L0 24 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 84px 96px;
+  }
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 28px;
+    transition:padding .35s ease, background .35s ease, box-shadow .35s ease;
+  }
+  header.scrolled{
+    padding:12px 28px;
+    background:rgba(251,242,222,0.88);
+    backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand img{
+    width:44px; height:44px; border-radius:50%; object-fit:cover;
+    border:2px solid var(--honey);
+  }
+  .brand-name{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:var(--espresso);
+  }
+  .brand-name span{display:block; font-family:'Inter'; font-weight:500; font-size:0.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--honey-dark);}
+  nav.main-nav{display:flex; align-items:center; gap:34px;}
+  nav.main-nav a{
+    font-size:0.86rem; font-weight:600; color:var(--espresso-light);
+    position:relative; padding-bottom:3px;
+  }
+  nav.main-nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--honey);
+    transition:width .3s ease;
+  }
+  nav.main-nav a:hover::after{width:100%;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 24px; border-radius:100px;
+    font-weight:700; font-size:0.86rem;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--espresso); color:var(--cream-light);
+    box-shadow:0 10px 24px -10px rgba(52,32,15,0.55);
+  }
+  .btn-primary:hover{transform:translateY(-2px); background:var(--berry);}
+  .btn-ghost{
+    border:1.5px solid var(--espresso); color:var(--espresso);
+  }
+  .btn-ghost:hover{background:var(--espresso); color:var(--cream-light);}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-toggle span{display:block; width:24px; height:2px; background:var(--espresso); margin:5px 0; transition:.3s;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height:100vh; display:flex; align-items:center;
+    padding:140px 0 90px;
+  }
+  .hero::before{
+    content:''; position:absolute; inset:0; z-index:0;
+  }
+  .hero .wrap{position:relative; z-index:2; display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:9px;
+    font-size:0.76rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--honey-dark); margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:26px; height:2px; background:var(--honey);}
+  .hero h1{font-size:clamp(2.6rem, 5.4vw, 4.4rem); margin-bottom:22px;}
+  .hero h1 em{font-style:italic; color:var(--honey-dark); font-weight:500;}
+  .hero p.lead{font-size:1.12rem; line-height:1.65; color:var(--espresso-light); max-width:520px; margin-bottom:34px;}
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:44px;}
+  .hero-stats{display:flex; gap:36px; flex-wrap:wrap;}
+  .hero-stats div strong{display:block; font-family:'Fraunces'; font-size:1.7rem; color:var(--espresso);}
+  .hero-stats div span{font-size:0.78rem; color:var(--espresso-light); font-weight:500;}
+
+  .hero-visual{position:relative; display:flex; align-items:center; justify-content:center;}
+  .hex-frame{
+    width:min(360px, 80vw); aspect-ratio:1/1.1;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:linear-gradient(160deg, var(--honey-soft), var(--honey) 60%, var(--honey-dark));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:var(--shadow);
+    position:relative;
+    animation:float 6s ease-in-out infinite;
+  }
+  .hex-frame img{
+    width:78%; height:78%; object-fit:cover;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0px) rotate(0deg);}
+    50%{transform:translateY(-14px) rotate(1.2deg);}
+  }
+  .hex-deco{
+    position:absolute; border-radius:50%; background:var(--honey);
+    opacity:.35; filter:blur(2px);
+  }
+  .hex-deco.d1{width:16px; height:16px; top:8%; right:8%;}
+  .hex-deco.d2{width:10px; height:10px; bottom:14%; left:2%; background:var(--berry);}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    background:var(--espresso); color:var(--cream); padding:16px 0; overflow:hidden;
+    border-top:1px solid rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .marquee-track{display:flex; gap:48px; white-space:nowrap; animation:scroll-left 26s linear infinite; width:max-content;}
+  .marquee-track span{font-family:'Fraunces'; font-style:italic; font-weight:500; font-size:1rem; opacity:.85; display:flex; align-items:center; gap:48px;}
+  .marquee-track span::after{content:'✦'; color:var(--honey); font-style:normal; opacity:.7;}
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:60px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(2rem, 3.6vw, 2.9rem);}
+  .section-head p{margin-top:16px; color:var(--espresso-light); font-size:1.02rem; line-height:1.6;}
+  .center{text-align:center; margin-left:auto; margin-right:auto;}
+
+  /* ---------- SOBRE ---------- */
+  .sobre{position:relative;}
+  .sobre .wrap{display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px; align-items:center;}
+  .sobre-art{position:relative;}
+  .comb-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  .comb-cell{
+    aspect-ratio:1/1.05;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--honey-soft);
+  }
+  .comb-cell:nth-child(1){background:var(--espresso);}
+  .comb-cell:nth-child(2){background:var(--honey); margin-top:38px;}
+  .comb-cell:nth-child(3){background:var(--berry); margin-top:-38px;}
+  .comb-cell:nth-child(4){background:var(--honey-soft);}
+  .sobre-copy p{color:var(--espresso-light); font-size:1.03rem; line-height:1.75; margin-bottom:18px;}
+  .sobre-list{list-style:none; margin-top:26px; display:grid; gap:14px;}
+  .sobre-list li{display:flex; gap:12px; align-items:flex-start; font-weight:600; font-size:0.95rem;}
+  .sobre-list li::before{content:'⬡'; color:var(--honey-dark); font-size:1.1rem; line-height:1;}
+
+  /* ---------- CARDÁPIO (hex grid) ---------- */
+  .cardapio{background:var(--cream-light); position:relative;}
+  .hive{
+    display:flex; flex-wrap:wrap; justify-content:center;
+    max-width:920px; margin:0 auto;
+  }
+  .hive-item{
+    position:relative;
+    width:220px; margin:-16px 6px;
+    aspect-ratio:1/1.155;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:linear-gradient(160deg,#4a2f1c, var(--espresso));
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:var(--cream);
+    cursor:pointer; overflow:hidden;
+    transition:transform .35s ease;
+  }
+  .hive-row-offset{margin-top:76px;}
+  .hive-item .hi-emoji{font-size:2.1rem; margin-bottom:10px; transition:transform .4s ease;}
+  .hive-item h3{font-family:'Fraunces'; font-size:1.05rem; font-weight:600; color:var(--cream-light); padding:0 20px; margin-bottom:6px;}
+  .hive-item p{font-size:0.78rem; color:rgba(251,242,222,0.72); padding:0 26px; line-height:1.4;}
+  .hive-item .hi-tag{
+    margin-top:12px; font-size:0.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--honey-soft); opacity:0; transform:translateY(6px); transition:all .35s ease;
+  }
+  .hive-item:hover{transform:translateY(-10px) scale(1.03);}
+  .hive-item:hover .hi-emoji{transform:scale(1.15);}
+  .hive-item:hover .hi-tag{opacity:1; transform:translateY(0);}
+  .hive-item::before{
+    content:''; position:absolute; inset:0; opacity:0;
+    background:linear-gradient(160deg, var(--honey-dark), var(--berry));
+    transition:opacity .35s ease; z-index:0;
+  }
+  .hive-item:hover::before{opacity:1;}
+  .hive-item > *{position:relative; z-index:1;}
+  .cardapio-note{
+    text-align:center; margin-top:52px; font-size:0.88rem; color:var(--espresso-light);
+  }
+  .cardapio-note a{color:var(--honey-dark); font-weight:700; border-bottom:1.5px solid var(--honey-dark);}
+
+  /* ---------- REVENDEDOR ---------- */
+  .revenda{
+    background:var(--espresso); color:var(--cream); position:relative; overflow:hidden;
+  }
+  .revenda .wrap{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center; position:relative; z-index:1;}
+  .revenda h2{color:var(--cream-light);}
+  .revenda p{color:rgba(251,242,222,0.75); font-size:1.03rem; line-height:1.7; margin:20px 0 32px;}
+  .revenda .eyebrow{color:var(--honey-soft);}
+  .revenda .eyebrow::before{background:var(--honey-soft);}
+  .perk-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .perk{
+    border:1px solid rgba(251,242,222,0.16); border-radius:18px; padding:24px 20px;
+    background:rgba(251,242,222,0.04);
+  }
+  .perk .hi-emoji{font-size:1.5rem; margin-bottom:10px; display:block;}
+  .perk h4{font-family:'Fraunces'; font-weight:600; font-size:1rem; margin-bottom:6px; color:var(--cream-light);}
+  .perk p{font-size:0.83rem; color:rgba(251,242,222,0.65); margin:0;}
+  .revenda-glow{
+    position:absolute; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(228,153,47,0.28), transparent 70%);
+    top:-160px; right:-160px; z-index:0;
+  }
+
+  /* ---------- AVALIAÇÕES ---------- */
+  .avaliacoes .wrap{text-align:center;}
+  .stars{font-size:1.4rem; color:var(--honey); letter-spacing:4px; margin-bottom:18px;}
+  blockquote{
+    max-width:680px; margin:0 auto 40px; font-family:'Fraunces'; font-style:italic; font-weight:500;
+    font-size:1.35rem; line-height:1.55; color:var(--espresso);
+  }
+  .review-cite{font-family:'Inter'; font-style:normal; font-weight:600; font-size:0.86rem; color:var(--espresso-light); display:block; margin-top:16px;}
+  .review-cite::before{content:'— ';}
+
+  /* ---------- CTA FINAL ---------- */
+  .cta-final{
+    background:linear-gradient(150deg, var(--honey-soft), var(--honey));
+    text-align:center; position:relative;
+  }
+  .cta-final h2{font-size:clamp(2rem,4vw,3rem); max-width:680px; margin:0 auto 20px;}
+  .cta-final p{max-width:520px; margin:0 auto 34px; color:var(--espresso-light); font-size:1.02rem;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--espresso); color:rgba(251,242,222,0.65); padding:64px 0 30px;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:50px; padding-bottom:44px; border-bottom:1px solid rgba(251,242,222,0.12);}
+  .footer-brand{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .footer-brand img{width:40px; height:40px; border-radius:50%; border:2px solid var(--honey);}
+  .footer-brand span{font-family:'Fraunces'; color:var(--cream-light); font-weight:600; font-size:1.05rem;}
+  footer h5{color:var(--cream-light); font-size:0.78rem; letter-spacing:.12em; text-transform:uppercase; margin-bottom:18px;}
+  footer ul{list-style:none; display:grid; gap:12px;}
+  footer a:hover{color:var(--honey-soft);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:26px; font-size:0.8rem; flex-wrap:wrap; gap:12px;}
+  .social-row{display:flex; gap:12px;}
+  .social-row a{
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(251,242,222,0.25);
+    display:flex; align-items:center; justify-content:center; font-size:0.85rem; transition:.25s;
+  }
+  .social-row a:hover{background:var(--honey); border-color:var(--honey); color:var(--espresso);}
+
+  /* WhatsApp floating button */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:200;
+    width:60px; height:60px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 26px -8px rgba(0,0,0,0.4);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  .wa-float:hover{transform:scale(1.06);}
+  @keyframes pulse{ 0%,100%{box-shadow:0 12px 26px -8px rgba(37,211,102,0.5);} 50%{box-shadow:0 12px 34px -6px rgba(37,211,102,0.85);} }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px){
+    nav.main-nav{position:fixed; top:0; right:0; height:100vh; width:78%; max-width:320px;
+      background:var(--cream-light); flex-direction:column; justify-content:center; align-items:flex-start;
+      padding:40px 36px; gap:26px; transform:translateX(100%); transition:transform .4s ease; box-shadow:-10px 0 40px rgba(0,0,0,0.15);
+    }
+    nav.main-nav.open{transform:translateX(0);}
+    nav.main-nav .btn{margin-top:10px;}
+    .menu-toggle{display:block;}
+    .hero .wrap, .sobre .wrap, .revenda .wrap{grid-template-columns:1fr; text-align:left;}
+    .hero-visual{order:-1; margin-bottom:20px;}
+    .hex-frame{width:min(280px,70vw); margin:0 auto;}
+    .perk-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr; gap:30px;}
+    section{padding:74px 0;}
+    .hive-item{width:44%; margin:-10px 3%;}
+    .hive-row-offset{margin-top:34px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header id="siteHeader">
+  <a href="#top" class="brand">
+    <img src="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV" alt="Favo de Mel">
+    <div class="brand-name">Favo de Mel<span>Confeitaria Artesanal</span></div>
+  </a>
+  <nav class="main-nav" id="mainNav">
+    <a href="#sobre">Sobre</a>
+    <a href="#cardapio">Cardápio</a>
+    <a href="#revenda">Seja Revendedor</a>
+    <a href="#avaliacoes">Avaliações</a>
+    <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" class="btn btn-primary">Peça pelo WhatsApp</a>
+  </nav>
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero honeycomb-pattern" id="top">
+  <div class="wrap">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Confeitaria artesanal · feito à mão</div>
+      <h1>Cada doce nasce<br> como um <em>favo de sabor.</em></h1>
+      <p class="lead">Bolos, tortas e doces finos preparados com receita própria, ingredientes selecionados e o tempo que a doçura de verdade exige. Do nosso forno para a sua mesa.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" class="btn btn-primary">
+          Fazer encomenda
+        </a>
+        <a href="#cardapio" class="btn btn-ghost">Ver cardápio</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>100%</strong><span>Artesanal</span></div>
+        <div><strong>Feito</strong><span>na hora do pedido</span></div>
+        <div><strong>Entrega</strong><span>combinada por WhatsApp</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hex-frame">
+        <img src="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV" alt="Doces Favo de Mel">
+      </div>
+      <div class="hex-deco d1"></div>
+      <div class="hex-deco d2"></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Bolos sob encomenda</span>
+    <span>Doces finos</span>
+    <span>Tortas artesanais</span>
+    <span>Kits para festa</span>
+    <span>Revenda disponível</span>
+    <span>Bolos sob encomenda</span>
+    <span>Doces finos</span>
+    <span>Tortas artesanais</span>
+    <span>Kits para festa</span>
+    <span>Revenda disponível</span>
+  </div>
+</div>
+
+<!-- ================= SOBRE ================= -->
+<section id="sobre" class="sobre">
+  <div class="wrap">
+    <div class="sobre-art reveal">
+      <div class="comb-grid">
+        <div class="comb-cell"></div>
+        <div class="comb-cell"></div>
+        <div class="comb-cell"></div>
+        <div class="comb-cell"></div>
+      </div>
+    </div>
+    <div class="sobre-copy reveal">
+      <div class="eyebrow">Nossa história</div>
+      <h2>Da colmeia para a sua mesa.</h2>
+      <p>A Favo de Mel nasceu da vontade de transformar receitas de família em doces que marcam presença em cada celebração. Como um favo, construímos cada doce em camadas: cuidado na escolha dos ingredientes, técnica artesanal e o tempo certo de preparo.</p>
+      <p>Trabalhamos com produção sob encomenda, para garantir que cada bolo, torta ou doce fino chegue até você fresquinho e no ponto certo de sabor.</p>
+      <ul class="sobre-list">
+        <li>Ingredientes selecionados e receitas próprias</li>
+        <li>Produção artesanal, sob encomenda</li>
+        <li>Opções para festas, eventos e revenda</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CARDÁPIO (favo interativo) ================= -->
+<section id="cardapio" class="cardapio">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow" style="justify-content:center">O que fazemos</div>
+      <h2>Um favo cheio de doçura</h2>
+      <p>Passe o mouse — ou toque — em cada célula para conhecer nossas linhas de produtos. Clique para pedir direto pelo WhatsApp.</p>
+    </div>
+
+    <div class="hive">
+      <a class="hive-item" target="_blank" rel="noopener"
+         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Bolos%20Especiais%20da%20Favo%20de%20Mel.">
+        <span class="hi-emoji">🎂</span>
+        <h3>Bolos Especiais</h3>
+        <p>Aniversário, casamento e datas comemorativas</p>
+        <span class="hi-tag">Pedir agora →</span>
+      </a>
+      <a class="hive-item hive-row-offset" target="_blank" rel="noopener"
+         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20as%20Tortas%20Artesanais%20da%20Favo%20de%20Mel.">
+        <span class="hi-emoji">🍰</span>
+        <h3>Tortas Artesanais</h3>
+        <p>Doces e geladas, feitas na medida certa</p>
+        <span class="hi-tag">Pedir agora →</span>
+      </a>
+      <a class="hive-item" target="_blank" rel="noopener"
+         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Doces%20Finos%20da%20Favo%20de%20Mel.">
+        <span class="hi-emoji">🍬</span>
+        <h3>Doces Finos</h3>
+        <p>Brigadeiros gourmet e docinhos decorados</p>
+        <span class="hi-tag">Pedir agora →</span>
+      </a>
+      <a class="hive-item hive-row-offset" target="_blank" rel="noopener"
+         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Bolos%20de%20Pote%20da%20Favo%20de%20Mel.">
+        <span class="hi-emoji">🍯</span>
+        <h3>Bolos de Pote</h3>
+        <p>Para presentear ou matar aquela vontade</p>
+        <span class="hi-tag">Pedir agora →</span>
+      </a>
+      <a class="hive-item" target="_blank" rel="noopener"
+         href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20Kits%20para%20Festa%20da%20Favo%20de%20Mel.">
+        <span class="hi-emoji">🎉</span>
+        <h3>Kits para Festa</h3>
+        <p>Combos completos para sua celebração</p>
+        <span class="hi-tag">Pedir agora →</span>
+      </a>
+    </div>
+
+    <p class="cardapio-note">Cardápio ilustrativo — troque pelas fotos e itens reais dos seus produtos.<br>
+      Fale direto com a gente pelo <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener">WhatsApp</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ================= REVENDA ================= -->
+<section id="revenda" class="revenda honeycomb-pattern">
+  <div class="revenda-glow"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Oportunidade</div>
+      <h2>Seja um revendedor Favo de Mel</h2>
+      <p>Quer levar a doçura da Favo de Mel para o seu negócio? Trabalhamos com condições especiais para quem quer revender nossos produtos.</p>
+      <a href="https://wa.me/message/VQOLUGSS2FXBI1?text=Ol%C3%A1!%20Tenho%20interesse%20em%20ser%20revendedor%20da%20Favo%20de%20Mel." target="_blank" rel="noopener" class="btn btn-primary">Falar sobre revenda</a>
+    </div>
+    <div class="perk-grid reveal">
+      <div class="perk"><span class="hi-emoji">💰</span><h4>Condições especiais</h4><p>Preços diferenciados para revendedores</p></div>
+      <div class="perk"><span class="hi-emoji">📦</span><h4>Produção sob demanda</h4><p>Combine volumes e prazos com a gente</p></div>
+      <div class="perk"><span class="hi-emoji">🤝</span><h4>Suporte direto</h4><p>Atendimento próximo via WhatsApp</p></div>
+      <div class="perk"><span class="hi-emoji">⭐</span><h4>Qualidade artesanal</h4><p>O mesmo padrão em todos os pedidos</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AVALIAÇÕES ================= -->
+<section id="avaliacoes" class="avaliacoes">
+  <div class="wrap reveal">
+    <div class="section-head center">
+      <div class="eyebrow" style="justify-content:center">Quem prova, aprova</div>
+      <h2>Avaliações de clientes</h2>
+    </div>
+    <div class="stars">★★★★★</div>
+    <blockquote>"Doce feito com carinho de verdade — dá pra sentir em cada mordida."
+      <span class="review-cite">Cliente Favo de Mel</span>
+    </blockquote>
+    <a href="https://g.page/r/CS5c2yqR-glREB0/review" target="_blank" rel="noopener" class="btn btn-ghost">Deixar minha avaliação</a>
+  </div>
+</section>
+
+<!-- ================= CTA FINAL ================= -->
+<section class="cta-final">
+  <div class="wrap reveal">
+    <h2>Vamos adoçar o seu dia?</h2>
+    <p>Fale agora pelo WhatsApp e monte sua encomenda com a gente.</p>
+    <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" class="btn btn-primary">Chamar no WhatsApp</a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="https://ugc.production.linktr.ee/5nhptoL6QcSaEPZJ0UF9_aqq38O15tP7xDUGV" alt="Favo de Mel">
+          <span>Favo de Mel</span>
+        </div>
+        <p style="font-size:0.88rem; line-height:1.6; max-width:280px;">Confeitaria artesanal feita com receitas próprias e muito carinho.</p>
+        <div class="social-row" style="margin-top:20px;">
+          <a href="https://www.instagram.com/favodemelconfeitariartesanal/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <a href="https://www.facebook.com/profile.php?id=100080938954758" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+          <a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div>
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#cardapio">Cardápio</a></li>
+          <li><a href="#revenda">Seja Revendedor</a></li>
+          <li><a href="#avaliacoes">Avaliações</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/favodemelconfeitariartesanal/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://g.page/r/CS5c2yqR-glREB0/review" target="_blank" rel="noopener">Avalie-nos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Favo de Mel — Confeitaria Artesanal.</span>
+      <span>Feito com 🍯 para adoçar seu dia.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/message/VQOLUGSS2FXBI1" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.71.45 3.38 1.3 4.86L2 22l5.35-1.4a9.9 9.9 0 0 0 4.69 1.19h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2zm5.79 14.13c-.24.68-1.4 1.33-1.93 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.08.99-2.37c.26-.28.56-.35.75-.35s.38 0 .54.01c.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.47-.14.16-.29.36-.42.48-.14.14-.28.28-.12.56.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.44.2.51.31.07.12.07.66-.17 1.34z"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // sticky header
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // mobile menu
+  const nav = document.getElementById('mainNav');
+  const toggle = document.getElementById('menuToggle');
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+    toggle.classList.toggle('open');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+  // scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
